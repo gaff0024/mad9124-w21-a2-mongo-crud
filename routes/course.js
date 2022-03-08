@@ -3,14 +3,14 @@ const debug = require('debug')('mad9124-w21-a2-mongo-crud')
 const router = express.Router()
 const Courses = require('../models/courses')
 const sanitizedBody = require('../middleware/sanitizeBody')
-const sanitizeMongo = require('express-mongo-sanitize')
+
 
 router.get('/', async (req, res) => {
     const courses = await Courses.find()
     res.send({data: courses.map(course => formatResponseData('courses', course))})
 })
 
-router.post('/', sanitizeMongo , sanitizedBody, async (req, res) => {
+router.post('/' , sanitizedBody, async (req, res) => {
     const attributes = req.sanitizedBody
     delete attributes._id
     let newCourse = new Courses(attributes)
@@ -28,7 +28,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.patch('/:id', sanitizeMongo, sanitizedBody, async (req, res) => {
+router.patch('/:id', sanitizedBody, async (req, res) => {
     try {
         const {_id, ...otherAttributes} = req.sanitizedBody
         const course = await Courses.findByIdAndUpdate(
@@ -46,7 +46,7 @@ router.patch('/:id', sanitizeMongo, sanitizedBody, async (req, res) => {
       }
 })
 
-router.put('/:id', sanitizeMongo, sanitizedBody, async (req, res) => {
+router.put('/:id', sanitizedBody, async (req, res) => {
     try {
         const {_id, ...otherAttributes} = req.sanitizedBody
         const course = await Courses.findByIdAndUpdate(
