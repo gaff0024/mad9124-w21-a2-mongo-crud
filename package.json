@@ -1,10 +1,12 @@
 {
   "name": "mad9124-w21-a2-mongo-crud",
   "version": "0.1.0",
-  "description": "",
+  "description": "MAD9124 Mobile API Development",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "dev": "DEBUG=mad9124-w21-a2-mongo-crud* NODE_ENV=dev PORT=3000 node app.js"
   },
   "keywords": [
     "MAD9124",
@@ -15,5 +17,24 @@
     "Robert McKenney <mckennr@algonquincollege.com>"
   ],
   "license": "ISC",
-  "private": true
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaff0024/mad9124-w21-a2-mongo-crud.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gaff0024/mad9124-w21-a2-mongo-crud/issues"
+  },
+  "homepage": "https://github.com/gaff0024/mad9124-w21-a2-mongo-crud#readme",
+  "dependencies": {
+    "debug": "^4.3.3",
+    "express": "^4.17.3",
+    "express-mongo-sanitize": "^2.2.0",
+    "mongoose": "^6.2.4",
+    "morgan": "^1.10.0",
+    "xss": "^1.0.11"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
 }
