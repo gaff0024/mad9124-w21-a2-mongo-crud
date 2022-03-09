@@ -6,7 +6,7 @@ const sanitizedBody = require('../middleware/sanitizeBody')
 
 router.get('/', async (req, res) => {
     const students = await Students.find()
-    res.send({data: students.map(student => formatResponseData('students', student))})
+    res.send({data: students.map(student => formatResponseData('students', student.toObject()))})
 })
 
 router.post('/' , sanitizedBody, async (req, res) => {
@@ -21,7 +21,7 @@ router.get('/:id', async (req, res) => {
     try {
         const students = await Students.findById(req.params.id)
         if (!students) throw new Error('Resource not found')
-        res.send({data: formatResponseData('students', students)})
+        res.send({data: formatResponseData('students', students.toObject())})
     } catch (err) {
         sendResourceNotFound(req, res)
     }
@@ -39,7 +39,7 @@ router.patch('/:id', sanitizedBody, async (req, res) => {
           }
         )
         if (!students) throw new Error('Resource not found')
-        res.send({data: formatResponseData('students', students)})
+        res.send({data: formatResponseData('students', students.toObject())})
       } catch (err) {
         sendResourceNotFound(req, res)
       }
@@ -58,7 +58,7 @@ router.put('/:id', sanitizedBody, async (req, res) => {
           }
         )
         if (!students) throw new Error('Resource not found')
-        res.send({data: formatResponseData('students', students)})
+        res.send({data: formatResponseData('students', students.toObject())})
       } catch (err) {
         sendResourceNotFound(req, res)
       }
@@ -68,7 +68,7 @@ router.delete('/:id', async (req, res) => {
     try {
         const students = await Students.findByIdAndRemove(req.params.id).populate('owner')
         if (!students) throw new Error('Resource not found')
-        res.send({data: formatResponseData('students', students)})
+        res.send({data: formatResponseData('students', students.toObject())})
       } catch (err) {
         sendResourceNotFound(req, res)
       }

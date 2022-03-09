@@ -7,7 +7,7 @@ const sanitizedBody = require('../middleware/sanitizeBody')
 
 router.get('/', async (req, res) => {
     const courses = await Courses.find()
-    res.send({data: courses.map(course => formatResponseData('courses', course))})
+    res.send({data: courses.map(course => formatResponseData('courses', course.toObject()))})
 })
 
 router.post('/' , sanitizedBody, async (req, res) => {
@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
     try {
         const course = await Courses.findById(req.params.id).populate('students')
         if (!course) throw new Error('Resource not found')
-        res.send({data: formatResponseData('courses', course)})
+        res.send({data: formatResponseData('courses', course.toObject())})
     } catch (err) {
         sendResourceNotFound(req, res)
     }
@@ -40,7 +40,7 @@ router.patch('/:id', sanitizedBody, async (req, res) => {
           }
         )
         if (!course) throw new Error('Resource not found')
-        res.send({data: formatResponseData('courses', course)})
+        res.send({data: formatResponseData('courses', course.toObject())})
       } catch (err) {
         sendResourceNotFound(req, res)
       }
@@ -59,7 +59,7 @@ router.put('/:id', sanitizedBody, async (req, res) => {
           }
         )
         if (!course) throw new Error('Resource not found')
-        res.send({data: formatResponseData('courses', course)})
+        res.send({data: formatResponseData('courses', course.toObject())})
       } catch (err) {
         sendResourceNotFound(req, res)
       }
@@ -67,9 +67,9 @@ router.put('/:id', sanitizedBody, async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        const course = await Courses.findByIdAndRemove(req.params.id).populate('owner')
+        const course = await Courses.findByIdAndRemove(req.params.id)
         if (!course) throw new Error('Resource not found')
-        res.send({data: formatResponseData('courses', course)})
+        res.send({data: formatResponseData('courses', course.toObject())})
       } catch (err) {
         sendResourceNotFound(req, res)
       }

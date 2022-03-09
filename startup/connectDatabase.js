@@ -10,7 +10,7 @@ module.exports = () => {
         useUnifiedTopology: true
       })
       .then(() => {
-        debug(`Connected to MongoDB ...`)
+        console.log(`Connected to MongoDB ...`)
       })
       .catch(err => {
         debug(`Error connecting to MongoDB ...`, err.message)
